@@ -11,12 +11,13 @@ require '../Core/Router.php';
 $router = new Router();
 
 // Add the routes
-$router->add('', ['controller' => 'Home', 'action' => 'index', 'method' => 'GET']);
-$router->add('posts',       ['controller' => 'PostController', 'action' => 'index', 'method' => 'GET']);
-$router->add('posts/{id}',  ['controller' => 'PostController', 'action' => 'show', 'method' => 'GET']);
-$router->add('posts',       ['controller' => 'PostController', 'action' => 'store', 'method' => 'POST']);
-$router->add('posts',       ['controller' => 'PostController', 'action' => 'update', 'method' => 'PUT']);
-$router->add('posts',       ['controller' => 'PostController', 'action' => 'remove', 'method' => 'DELETE']);
+$router->add('/', ['controller' => 'Home', 'action' => 'index', 'method' => 'GET']);
+$router->add('/posts',       ['controller' => 'PostController', 'action' => 'index', 'method' => 'GET']);
+$router->add('/posts/{id}',  ['controller' => 'PostController', 'action' => 'show', 'method' => 'GET']);
+$router->add('/posts',       ['controller' => 'PostController', 'action' => 'store', 'method' => 'POST']);
+$router->add('/posts',       ['controller' => 'PostController', 'action' => 'update', 'method' => 'PUT']);
+$router->add('/posts',       ['controller' => 'PostController', 'action' => 'remove', 'method' => 'DELETE']);
+$router->add('/bet/concile',       ['controller' => 'PostController', 'action' => 'remove', 'method' => 'DELETE']);
 
 // Get route from external URL
 $url = $_SERVER['QUERY_STRING'];

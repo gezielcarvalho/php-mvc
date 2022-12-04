@@ -58,23 +58,33 @@ class Router
      * 
      * @return boolean true if a match found, false otherwise
      */
-    public function match($url)
+    public function match($query_string_received)
     {
-        $reg_exp = "^(.*:)//([A-Za-z0-9\-\.]+)(:[0-9]+)?(.*)$";
+        $reg_exp = "/[&=?]/";
 
-        if(preg_match($reg_exp, $url, $matches)){
+        $query_parts = explode('/', $query_string_received);
 
-            $params = [];
-            
-            foreach ($matches as $key => $match) {
-               if (is_string($key)) {
-                $params[$key] = $match;
-               }
+        $route = '';
+        foreach ($query_parts as $part) {
+            if (preg_match($reg_exp,$part)) {
+                $this->params[] = $part;
+            } else {
+                $route .= '/' . $part;
             }
+        }
 
-            $this-> params = $params;
+        if(array_key_exists($route, $this->routes)){
             return true;
         }
+
+        $partial_route = '/'.implode(array_slice($query_parts,0,sizeof($query_parts)-1),'/');
+
+        $this->params[] = $query_parts[sizeof($query_parts)-1];
+
+        if(array_key_exists($partial_route, $this->routes)){
+            return true;
+        }
+        
         return false;
     }
 
