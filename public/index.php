@@ -1,23 +1,32 @@
 <?php
 
-/**
- * Front controller
- * 
- * PHP Version 5.6
- */
+spl_autoload_register(function ($class) {
+    $root = dirname(__DIR__);
+    $file = $root . "/" . str_replace("\\", '/', $class) . ".php";
+    if (is_readable($file)) {
+        require $root . "/" . str_replace("\\", "/", $class) . ".php";
+    }
+});
 
-require '../Core/Router.php';
+use Core\Router;
 
 $router = new Router();
 
 // Add the routes
-$router->add('/', ['controller' => 'Home', 'action' => 'index', 'method' => 'GET']);
-$router->add('/posts',       ['controller' => 'PostController', 'action' => 'index', 'method' => 'GET']);
-$router->add('/posts/{id}',  ['controller' => 'PostController', 'action' => 'show', 'method' => 'GET']);
-$router->add('/posts',       ['controller' => 'PostController', 'action' => 'store', 'method' => 'POST']);
-$router->add('/posts',       ['controller' => 'PostController', 'action' => 'update', 'method' => 'PUT']);
-$router->add('/posts',       ['controller' => 'PostController', 'action' => 'remove', 'method' => 'DELETE']);
-$router->add('/bet/concile',       ['controller' => 'PostController', 'action' => 'remove', 'method' => 'DELETE']);
+$router->add('/', ['controller' => 'App\Controllers\HomeController', 'action' => 'index', 'request' => 'GET']);
+$router->add('/posts', ['controller' => 'App\Controllers\PostController', 'action' => 'index', 'request' => 'GET']);
+$router->add(
+    '/posts',
+    [
+        'controller' => 'App\Controllers\PostController',
+        'action' => 'show',
+        'request' => 'GET',
+        'args' => ['id']
+    ]
+);
+$router->add('/posts', ['controller' => 'App\Controllers\PostController', 'action' => 'store', 'request' => 'POST']);
+$router->add('/posts', ['controller' => 'App\Controllers\PostController', 'action' => 'update', 'request' => 'PUT']);
+$router->add('/posts', ['controller' => 'App\Controllers\PostController', 'action' => 'remove', 'request' => 'DELETE']);
 
 // Get route from external URL
 $url = $_SERVER['QUERY_STRING'];
@@ -25,7 +34,7 @@ $url = $_SERVER['QUERY_STRING'];
 // Check if route exists
 if ($router->match($url)) {
     echo '<pre>';
-    var_dump($router->getParams());
+    $router->dispatch();
     echo '</pre>';
 } else {
     echo "No route found from URL $url";
