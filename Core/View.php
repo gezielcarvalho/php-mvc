@@ -8,7 +8,11 @@ class View
     {
         extract($args, EXTR_SKIP);
 
+        $header = "../Templates/Vue/header.php";
         $file = "../App/Views/$view";
+        $footer = "../Templates/Vue/footer.php";
+
+        require $header;
 
         if (is_readable($file)) {
             require $file;
@@ -16,5 +20,6 @@ class View
             echo "$file not found";
         }
         
+        require $footer;        
     }
 }
