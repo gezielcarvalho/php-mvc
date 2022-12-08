@@ -9,6 +9,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        View::render('Home/index.php');
+        View::render('Home/index.php',[
+            'name' => 'Geziel',
+            'skills' => ['PHP', 'Laravel', 'VueJS']
+        ]);
     }    
 }

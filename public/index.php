@@ -33,9 +33,7 @@ $url = $_SERVER['QUERY_STRING'];
 
 // Check if route exists
 if ($router->match($url)) {
-    echo '<pre>';
     $router->dispatch();
-    echo '</pre>';
 } else {
     echo "No route found from URL $url";
 }
