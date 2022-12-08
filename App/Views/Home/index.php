@@ -51,7 +51,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
                         <form class="p-3">
-                            <input type="search" class="form-control" placeholder="Search ..."
+                            <input type="search" class="form-control" placeholder="Search ......."
                                 aria-label="Recipient's username">
                         </form>
                     </div>
@@ -369,7 +369,7 @@
 
             <!-- Topbar Search Form -->
             <div class="app-search dropdown">
-                <form>
+                <form style="display:<?= $toolbar['search']['display'] ?>">
                     <div class="input-group">
                         <input type="search" class="form-control dropdown-toggle" placeholder="Search..."
                             id="top-search">
@@ -377,62 +377,6 @@
                         <button class="input-group-text btn btn-primary" type="submit">Search</button>
                     </div>
                 </form>
-
-                <div class="dropdown-menu dropdown-menu-animated dropdown-lg" id="search-dropdown">
-                    <!-- item-->
-                    <div class="dropdown-header noti-title">
-                        <h5 class="text-overflow mb-2">Found <span class="text-danger">17</span> results</h5>
-                    </div>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="uil-notes font-16 me-1"></i>
-                        <span>Analytics Report</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="uil-life-ring font-16 me-1"></i>
-                        <span>How can I help you?</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="uil-cog font-16 me-1"></i>
-                        <span>User profile settings</span>
-                    </a>
-
-                    <!-- item-->
-                    <div class="dropdown-header noti-title">
-                        <h6 class="text-overflow mb-2 text-uppercase">Users</h6>
-                    </div>
-
-                    <div class="notification-list">
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="d-flex">
-                                <img class="d-flex me-2 rounded-circle" src="assets/images/users/avatar-2.jpg"
-                                    alt="Generic placeholder image" height="32">
-                                <div class="w-100">
-                                    <h5 class="m-0 font-14">Erwin Brown</h5>
-                                    <span class="font-12 mb-0">UI Designer</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="d-flex">
-                                <img class="d-flex me-2 rounded-circle" src="assets/images/users/avatar-5.jpg"
-                                    alt="Generic placeholder image" height="32">
-                                <div class="w-100">
-                                    <h5 class="m-0 font-14">Jacob Deo</h5>
-                                    <span class="font-12 mb-0">Developer</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -480,28 +424,29 @@
 
             <!--- Sidemenu -->
             <ul class="side-nav">
-
                 <?php
                 foreach ($sidebar['menu']['sections'] as $section) {
                 ?>
-                <li class="side-nav-title side-nav-item">Navigation</li>
+                <li class="side-nav-title side-nav-item">
+                    <?= $section['name'] ?>
+                </li>
                 <?php
                     foreach ($section['items'] as $item) {
                 ?>
                 <li class="side-nav-item">
-                    <a href="<?=$item['href']?>" class="side-nav-link">
-                        <i class="<?=$item['icon']?>"></i>
-                        <span> <?=$item['title']?> </span>
+                    <a href="<?= $item['href'] ?>" class="side-nav-link">
+                        <i class="<?= $item['icon'] ?>"></i>
+                        <span>
+                            <?= $item['title'] ?>
+                        </span>
                     </a>
                 </li>
                 <?php
                     }
                 }
                 ?>
-
             </ul>
             <!--- End Sidemenu -->
-
             <div class="clearfix"></div>
         </div>
     </div>
@@ -524,9 +469,16 @@
                         <div class="page-title-box">
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
-                                    <li class="breadcrumb-item active">Dashboard</li>
+                                    <?php
+                                    foreach ($breadcrumbs as $item) {
+                                    ?>
+                                    <li class="breadcrumb-item <?= $item['href'] === 'active' ? 'active' : '' ?>">
+                                        <?= $item['href'] !== 'active' ? '<a href="' . $item['href'] . '">' .
+                                            $item['title'] . '</a>' : $item['title'] ?>
+                                    </li>
+                                    <?php
+                                    }
+                                    ?>
                                 </ol>
                             </div>
                             <h4 class="page-title">Dashboard</h4>
@@ -534,22 +486,30 @@
                     </div>
                 </div>
                 <!-- end page title -->
+                <div class="row">
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-12">
+                                        <h5 class="text-muted fw-normal mt-0" title="Campaign Sent">
+                                            Registered Users</h5>
+                                        <h3 class="my-2 py-1">9,184</h3>
+                                        <p class="mb-0 text-muted">
+                                            <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i>
+                                                3.27%</span>
+                                        </p>
+                                    </div>
+                                </div> <!-- end row-->
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card -->
+                    </div>
+                </div>
 
             </div> <!-- container -->
 
         </div> <!-- content -->
-        <h1>Welcome!</h1>
-        <p> Hello,
-            <?php echo $data['name'] ?>!
-        </p>
 
-        <ul>
-            <?php
-            foreach ($data['skills'] as $skill) {
-                echo '<li>' . $skill . '</li>';
-            }
-            ?>
-        </ul>
         <!-- Footer Start -->
         <footer class="footer">
             <div class="container-fluid">
@@ -1097,4 +1057,5 @@
 <script src="assets/js/vendor.min.js"></script>
 
 <!-- App js -->
+<script src="assets/js/app.min.js"></script>
 <script src="assets/js/app.min.js"></script>

@@ -34,6 +34,25 @@ class HomeController extends Controller
                 ]
             ]
         ];
-        View::render('Home/index.php', compact(['data','sidebar']));
+        $toolbar = [
+            'search' => [
+                'display' => 'none'
+            ]
+        ];
+        $breadcrumbs = [
+            [
+                'title' => 'Home',
+                'href' => '/'
+            ],
+            [
+                'title' => 'Navigation',
+                'href' => '/'
+            ],
+            [
+                'title' => 'Dashboard',
+                'href' => 'active'
+            ],
+        ];
+        View::render('Home/index.php', compact(['data', 'sidebar', 'toolbar', 'breadcrumbs']));
     }
 }
