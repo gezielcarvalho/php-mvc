@@ -8,9 +8,12 @@ class View
     {
         extract($args, EXTR_SKIP);
 
-        $header = "../Templates/Vue/header.php";
+        $template = "VueHyper"; // Bootstrap, Vue, VueHyper
+        $template_folder = "../Templates/$template";
+
+        $header = "$template_folder/header.php";
         $file = "../App/Views/$view";
-        $footer = "../Templates/Vue/footer.php";
+        $footer = "$template_folder/footer.php";
 
         require $header;
 
@@ -19,7 +22,7 @@ class View
         } else {
             echo "$file not found";
         }
-        
+
         require $footer;        
     }
 }
