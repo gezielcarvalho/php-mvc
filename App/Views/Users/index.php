@@ -12,17 +12,25 @@
                             <?php
                             foreach ($breadcrumbs as $item) {
                             ?>
-                            <li class="breadcrumb-item <?= $item['href'] === 'active' ? 'active' : '' ?>">
-                                <?= $item['href'] !=='active' ? '<a href="' . $item['href'] . '">' . $item['title'] .
-                                    '</a>' : $item['title'] ?>
-                            </li>
+                                <li class="breadcrumb-item <?= $item['href'] === 'active' ? 'active' : '' ?>">
+                                    <?= $item['href'] !== 'active' ? '<a href="' . $item['href'] . '">' . $item['title'] .
+                                        '</a>' : $item['title'] ?>
+                                </li>
                             <?php
                             }
                             ?>
                         </ol>
                     </div>
                     <h4 class="page-title">User Management</h4>
-                    
+                    <button @click="getCostumers">Fetch data</button>
+                    <!-- {{ username }} -->
+                    <div>
+                        <ul>
+                            <li v-for="user in users">
+                                {{ user }}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -40,27 +48,7 @@
     createApp({
         data() {
             return {
-                costumers: '',
-                username: 'sysadmin',
-                form: {
-                    surname: 'Doe',
-                    name: 'John',
-                    username: '',
-                    password: '',
-                    user_type: '',
-                    account_status: '',
-                    balance: '',
-                    currency: '',
-                    email: '',
-                    phone: '',
-                    address: '',
-                    city: '',
-                    province: '',
-                    comune: '',
-                    ipaddress: '',
-                },
-                response: 0,
-                load: false,
+                users: '',
             }
         },
         mounted() {
@@ -68,11 +56,12 @@
         },
         methods: {
             getCostumers() {
-                console.log("getCostumers");
+                console.log('Fetching data...');
                 axios.get('/api/users')
-                .then(response => {
-                    console.log({data: response.data});
-                })
+                    .then(response => {
+                        this.users = response.data.result;
+                        console.log('data fetched',response.data.result);
+                    })
             },
         }
     }).mount('#app');

@@ -96,15 +96,22 @@ class UserController extends Controller
         $users = User::getAll();
         echo json_encode(['result' => $users]);
         // Fetch today's visits of user #42.
-// We'll use a prepared statement again, but with numbered parameters this time:
+        // We'll use a prepared statement again, but with numbered parameters this time:
 
+        $statement = $this->db->prepare('SELECT * FROM "visits"');
         // $statement = $this->db->prepare('SELECT * FROM "visits" WHERE "user_id" = ? AND "time" >= ?');
         // $statement->bindValue(1, 42);
         // $statement->bindValue(2, '2017-01-14');
-        // $result = $statement->execute();
+        // Fetch Associated Array (1 for SQLITE3_ASSOC)
+        $results = $statement->execute();
+        $data = [];
+        while ($res = $results->fetchArray(1)) {
+            //insert row into array
+            array_push($data, $res);
+        }
 
-        // echo json_encode(['result' => $result->fetchArray(SQLITE3_NUM)]);
-        // // free the memory, this in NOT done automatically, while your script is running
-        // $result->finalize();
+        echo json_encode(['result' => $data]);
+        // free the memory, this in NOT done automatically, while your script is running
+        $results->finalize();
     }
 }
