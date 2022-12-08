@@ -7,6 +7,10 @@ class UserController {
     
     public function index()
     {
+        $data = [
+            'name' => 'Geziel Carvalho',
+            'skills' => ['PHP', 'Laravel', 'VueJS']
+        ];
         $sidebar = [
             'menu' => [
                 'sections' => [
@@ -47,6 +51,6 @@ class UserController {
                 'href' => 'active'
             ],
         ];
-        View::render('Users/index.php', compact(['sidebar', 'toolbar', 'breadcrumbs']));
+        View::render('Users/index.php', compact(['data','sidebar', 'toolbar', 'breadcrumbs']));
     }
 }

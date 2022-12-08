@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function index()
     {
         $data = [
-            'name' => 'Geziel',
+            'name' => 'Geziel Carvalho',
             'skills' => ['PHP', 'Laravel', 'VueJS']
         ];
         $sidebar = [

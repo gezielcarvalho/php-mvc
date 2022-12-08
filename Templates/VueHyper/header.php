@@ -72,18 +72,6 @@
                 </button>
 
                 <ul class="list-unstyled topbar-menu float-end mb-0">
-                    <li class="dropdown notification-list d-lg-none">
-                        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
-                            aria-haspopup="false" aria-expanded="false">
-                            <i class="ri-search-line noti-icon"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
-                            <form class="p-3">
-                                <input type="search" class="form-control" placeholder="Search ......."
-                                    aria-label="Recipient's username">
-                            </form>
-                        </div>
-                    </li>
 
                     <li class="notification-list d-none d-sm-inline-block">
                         <a class="nav-link" href="javascript:void(0)" id="light-dark-mode">
@@ -104,7 +92,7 @@
                                 <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
                             </span>
                             <span>
-                                <span class="account-user-name">Dominic Keller</span>
+                                <span class="account-user-name"><?=$data['name']?></span>
                                 <span class="account-position">Founder</span>
                             </span>
                         </a>
