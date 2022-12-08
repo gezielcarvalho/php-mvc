@@ -27,6 +27,7 @@ $router->add(
 $router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'store', 'request' => 'POST']);
 $router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'update', 'request' => 'PUT']);
 $router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'remove', 'request' => 'DELETE']);
+$router->add('/api/users', ['controller' => 'App\Controllers\UserController', 'action' => 'indexJson', 'request' => 'GET']);
 
 // Get route from external URL
 $url = $_SERVER['QUERY_STRING'];

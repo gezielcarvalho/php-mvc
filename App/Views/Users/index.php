@@ -71,8 +71,7 @@
                 console.log("getCostumers");
                 axios.get('/api/users')
                 .then(response => {
-                    console.log({response});
-                    //this.costumers = response.data
+                    console.log({data: response.data});
                 })
             },
         }
