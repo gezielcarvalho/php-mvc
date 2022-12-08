@@ -37,7 +37,6 @@ class UserController
         $this->db->query('INSERT INTO "visits" ("user_id", "url", "time")
     VALUES (43, "/test2", "2017-01-14 10:11:44")');
         $this->db->exec('COMMIT');
-
     }
     public function index()
     {
@@ -91,15 +90,22 @@ class UserController
     public function indexJson()
     {
         // Fetch today's visits of user #42.
-// We'll use a prepared statement again, but with numbered parameters this time:
+        // We'll use a prepared statement again, but with numbered parameters this time:
 
-        $statement = $this->db->prepare('SELECT * FROM "visits" WHERE "user_id" = ? AND "time" >= ?');
-        $statement->bindValue(1, 42);
-        $statement->bindValue(2, '2017-01-14');
-        $result = $statement->execute();
+        $statement = $this->db->prepare('SELECT * FROM "visits"');
+        // $statement = $this->db->prepare('SELECT * FROM "visits" WHERE "user_id" = ? AND "time" >= ?');
+        // $statement->bindValue(1, 42);
+        // $statement->bindValue(2, '2017-01-14');
+        // Fetch Associated Array (1 for SQLITE3_ASSOC)
+        $results = $statement->execute();
+        $data = [];
+        while ($res = $results->fetchArray(1)) {
+            //insert row into array
+            array_push($data, $res);
+        }
 
-        echo json_encode(['result' => $result->fetchArray(SQLITE3_NUM)]);
+        echo json_encode(['result' => $data]);
         // free the memory, this in NOT done automatically, while your script is running
-        $result->finalize();
+        $results->finalize();
     }
 }

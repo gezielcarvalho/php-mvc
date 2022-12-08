@@ -126,7 +126,7 @@ class Router
             return true;
         }
 
-        $this->incomingRoute = '/' . implode(array_slice($query_parts, 0, sizeof($query_parts) - 1), '/');
+        $this->incomingRoute = '/' . implode( '/',array_slice($query_parts, 0, sizeof($query_parts) - 1));
         $this->incomingParams = $query_parts[sizeof($query_parts) - 1];
 
         if ($this->validateRoute($this->incomingRoute, $this->incomingParams)) {
