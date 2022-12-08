@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-class PostController {
+class UserController {
     
     public function index()
     {
-        echo "calling index";
+        echo "calling users index";
     }
 }
