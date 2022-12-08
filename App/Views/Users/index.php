@@ -1,9 +1,4 @@
-<!-- ============================================================== -->
-<!-- Start Page Content here -->
-<!-- ============================================================== -->
-
-
-<div class="content">
+<div id="app" class="content">
 
     <!-- Start Content-->
     <div class="container-fluid">
@@ -18,7 +13,7 @@
                             foreach ($breadcrumbs as $item) {
                             ?>
                             <li class="breadcrumb-item <?= $item['href'] === 'active' ? 'active' : '' ?>">
-                                <?= $item['href'] !== 'active' ? '<a href="' . $item['href'] . '">' . $item['title'] .
+                                <?= $item['href'] !=='active' ? '<a href="' . $item['href'] . '">' . $item['title'] .
                                     '</a>' : $item['title'] ?>
                             </li>
                             <?php
@@ -27,6 +22,7 @@
                         </ol>
                     </div>
                     <h4 class="page-title">User Management</h4>
+                    
                 </div>
             </div>
         </div>
@@ -36,3 +32,49 @@
 
 </div> <!-- content -->
 
+<script>
+    const {
+        createApp
+    } = Vue
+
+    createApp({
+        data() {
+            return {
+                costumers: '',
+                username: 'sysadmin',
+                form: {
+                    surname: 'Doe',
+                    name: 'John',
+                    username: '',
+                    password: '',
+                    user_type: '',
+                    account_status: '',
+                    balance: '',
+                    currency: '',
+                    email: '',
+                    phone: '',
+                    address: '',
+                    city: '',
+                    province: '',
+                    comune: '',
+                    ipaddress: '',
+                },
+                response: 0,
+                load: false,
+            }
+        },
+        mounted() {
+            this.getCostumers();
+        },
+        methods: {
+            getCostumers() {
+                console.log("getCostumers");
+                axios.get('/api/users')
+                .then(response => {
+                    console.log({response});
+                    //this.costumers = response.data
+                })
+            },
+        }
+    }).mount('#app');
+</script>

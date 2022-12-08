@@ -22,6 +22,13 @@
     <!-- App css -->
     <link href="assets/css/app-saas.min.css" rel="stylesheet" type="text/css" id="app-style" />
 
+    <!-- Vue js -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- axios import -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
     <title>Custom MVC App - Vue</title>
 </head>
 
@@ -92,7 +99,9 @@
                                 <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
                             </span>
                             <span>
-                                <span class="account-user-name"><?=$data['name']?></span>
+                                <span class="account-user-name">
+                                    <?= $data['name'] ?>
+                                </span>
                                 <span class="account-position">Founder</span>
                             </span>
                         </a>
@@ -194,14 +203,14 @@
                 <!--- Sidemenu -->
                 <ul class="side-nav">
                     <?php
-            foreach ($sidebar['menu']['sections'] as $section) {
-            ?>
+                    foreach ($sidebar['menu']['sections'] as $section) {
+                    ?>
                     <li class="side-nav-title side-nav-item">
                         <?= $section['name'] ?>
                     </li>
                     <?php
-                foreach ($section['items'] as $item) {
-            ?>
+                        foreach ($section['items'] as $item) {
+                    ?>
                     <li class="side-nav-item">
                         <a href="<?= $item['href'] ?>" class="side-nav-link">
                             <i class="<?= $item['icon'] ?>"></i>
@@ -211,9 +220,9 @@
                         </a>
                     </li>
                     <?php
-                }
-            }
-            ?>
+                        }
+                    }
+                    ?>
                 </ul>
                 <!--- End Sidemenu -->
                 <div class="clearfix"></div>

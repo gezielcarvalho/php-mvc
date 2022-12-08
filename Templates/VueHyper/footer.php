@@ -28,17 +28,11 @@
 </div>
 <!-- END wrapper -->
 
-<!-- Vue js -->
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
 <!-- Vendor js -->
 <script src="assets/js/vendor.min.js"></script>
 
 <!-- App js -->
 <script src="assets/js/app.min.js"></script>
-
-<!-- axios import -->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
