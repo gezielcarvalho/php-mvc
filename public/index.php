@@ -1,4 +1,6 @@
 <?php
+use Core\Config;
+use Core\Router;
 
 spl_autoload_register(function ($class) {
     $root = dirname(__DIR__);
@@ -8,7 +10,7 @@ spl_autoload_register(function ($class) {
     }
 });
 
-use Core\Router;
+(new Config(__DIR__ . '/.env'))->load();
 
 $router = new Router();
 

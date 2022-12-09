@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Core\Model;
 use PDO;
 use PDOException;
 
@@ -10,7 +11,7 @@ use PDOException;
  *
  * PHP version 5.4
  */
-class User
+class User extends Model
 {
 
     /**
@@ -20,16 +21,9 @@ class User
      */
     public static function getAll()
     {
-   
-        $host = 'mydb';
-        $port = '3306';
-        $dbname = 'five';
-        $username = 'root';
-        $password = 'A_1234567';
-    
+  
         try {
-            $db = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8",
-                          $username, $password);
+            $db = static::getDB();
 
             $stmt = $db->query('SELECT id, name, username, surname FROM users');
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
