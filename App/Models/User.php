@@ -21,17 +21,24 @@ class User
     public static function getAll()
     {
    
-        $results = [];
-
+        $host = 'mydb';
+        $port = '3306';
+        $dbname = 'five';
+        $username = 'root';
+        $password = 'A_1234567';
+    
         try {
-            $db = new PDO("sqlite:mvc.sqlite");
-            $stmt = $db->query('SELECT id, title, content FROM posts
-                                ORDER BY created_at');
+            $db = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8",
+                          $username, $password);
+
+            $stmt = $db->query('SELECT id, name, username, surname FROM users');
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            $results[] = $e->getMessage();
         } finally {
             return $results;
         }
+
     }
 }

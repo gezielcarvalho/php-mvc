@@ -29,18 +29,18 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">User ID</th>
-                                <th scope="col">URL</th>
-                                <th scope="col">Time</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Surname</th>
+                                <th scope="col">Username</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- renders the table  -->
                             <tr v-for="user in showingUsers" :key="user.user_id">
                                 <th scope="row">{{ user.id }}</th>
-                                <td>{{ user.user_id }}</td>
-                                <td>{{ user.url }}</td>
-                                <td>{{ user.time }}</td>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.surname }}</td>
+                                <td>{{ user.username }}</td>
                             </tr>
                         </tbody>
                     </table>
