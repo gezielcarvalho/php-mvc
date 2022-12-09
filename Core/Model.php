@@ -3,7 +3,6 @@
 namespace Core;
 
 use PDO;
-use PDOException;
 
 /**
  * Base model
@@ -27,14 +26,17 @@ abstract class Model
             $dbname = getenv('DATABASE_NAME');
             $username = getenv('DATABASE_USER');
             $password = getenv('DATABASE_PASSWORD');
-    
-            try {
-                $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", 
-                              $username, $password);
 
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-            }
+
+            $db = new PDO(
+                "mysql:host=$host;dbname=$dbname;charset=utf8",
+                $username,
+                $password
+            );
+
+            // Throw an Exception when an error occurs
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
         }
 
         return $db;
