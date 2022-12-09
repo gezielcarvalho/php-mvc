@@ -22,21 +22,44 @@
                         </ol>
                     </div>
                     <h4 class="page-title">User Management</h4>
-                    <button @click="getCostumers">Fetch data</button>
-                    <!-- {{ username }} -->
-                    <div>
-                        <ul>
-                            <li v-for="user in users">
-                                {{ user }}
-                            </li>
-                        </ul>
-                    </div>
+                    <!-- table -->
+                    <!-- table -->
+                    <!-- table -->
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">User ID</th>
+                                <th scope="col">URL</th>
+                                <th scope="col">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- renders the table  -->
+                            <tr v-for="user in showingUsers" :key="user.user_id">
+                                <th scope="row">{{ user.id }}</th>
+                                <td>{{ user.user_id }}</td>
+                                <td>{{ user.url }}</td>
+                                <td>{{ user.time }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
         <!-- end page title -->
 
     </div> <!-- container -->
+    <!-- pagination -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <!-- <li class="page-item"><a class="page-link">Previous</a></li> -->
+            <li style="cursor:pointer;" v-for="(page, index) in pageCount" :key="index" class="page-item" @click="setPage(page)">
+                <a :class="page == current_page ? 'text-info':''" class="page-link" v-html="page"></a>
+            </li>
+            <!-- <li class="page-item"><a class="page-link">Next</a></li> -->
+        </ul>
+    </nav>
 
 </div> <!-- content -->
 
@@ -49,6 +72,9 @@
         data() {
             return {
                 users: '',
+                current_page: 1,
+                pageCount: 0,
+                showingUsers: []
             }
         },
         mounted() {
@@ -57,12 +83,23 @@
         methods: {
             getCostumers() {
                 console.log('Fetching data...');
-                axios.get('/api/users')
+                axios.get(`/api/users`)
                     .then(response => {
                         this.users = response.data.result;
-                        console.log('data fetched',response.data.result);
+                        console.log('data fetched raw', response.data);
+                        console.log('data fetched', response.data.result);
+                        this.showingUsers = this.users.slice(0, 10);
                     })
             },
+            setPage(page) {
+                this.current_page = page;
+                this.showingUsers = this.users.slice((page - 1) * 10, page * 10);
+            }
+        },
+        watch: {
+            users(value) {
+                this.pageCount = Math.ceil(value.length / 10)
+            }
         }
     }).mount('#app');
 </script>
